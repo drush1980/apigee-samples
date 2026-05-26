@@ -1,7 +1,7 @@
 {
     "operationConfigs": [
       {
-        "apiSource": "llm-security-v2",
+        "apiSource": "llm-security-v2-anthropic-vertex",
         "operations": [
           {
             "resource": "/",
