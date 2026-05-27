@@ -106,7 +106,7 @@ echo "  APIKEY=$APIKEY"
 echo " "
 echo "Then, run the following commands to test the API"
 echo " "
-echo "curl -i --location \"https://$APIGEE_HOST/v1/vertex-anthropic/v1/projects/$PROJECT_ID/locations/us-central1/publishers/anthropic/models/claude-haiku-4-5:rawPredict\" \\"
+echo "curl -i --location \"https://$APIGEE_HOST/v1/vertex-anthropic/v1/projects/$PROJECT_ID/locations/global/publishers/anthropic/models/claude-haiku-4-5:rawPredict\" \\"
 echo "  --header \"Content-Type: application/json\" \\"
 echo "  --header \"x-apikey: \$APIKEY\" \\"
 echo "  --data '{
@@ -119,7 +119,7 @@ echo "  --data '{
       }]
 }'"
 echo " "
-echo "curl -i --location \"https://\$APIGEE_HOST/v1/vertex-anthropic/v1/projects/\$PROJECT_ID/locations/us-central1/publishers/anthropic/models/claude-haiku-4-5:rawPredict\" \\"
+echo "curl -i --location \"https://\$APIGEE_HOST/v1/vertex-anthropic/v1/projects/\$PROJECT_ID/locations/global/publishers/anthropic/models/claude-haiku-4-5:rawPredict\" \\"
 echo "  --header \"Content-Type: application/json\" \\"
 echo "  --header \"x-apikey: \$APIKEY\" \\"
 echo "  --data '{
