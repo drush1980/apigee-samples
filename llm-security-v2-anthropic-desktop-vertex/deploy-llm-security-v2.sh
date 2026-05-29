@@ -29,7 +29,7 @@ check_shell_variables PROJECT_ID \
 
 check_required_commands gcloud jq curl sed
 
-TOKEN=$(gcloud auth application-default print-access-token)
+TOKEN=$(gcloud auth print-access-token)
 
 insure_apigeecli
 

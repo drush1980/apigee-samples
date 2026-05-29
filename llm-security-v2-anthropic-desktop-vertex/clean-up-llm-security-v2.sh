@@ -27,7 +27,7 @@ check_shell_variables PROJECT_ID \
 check_required_commands gcloud jq curl
 
 # shellcheck disable=SC2034
-TOKEN=$(gcloud auth application-default print-access-token)
+TOKEN=$(gcloud auth print-access-token)
 
 insure_apigeecli
 

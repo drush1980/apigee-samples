@@ -14,15 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export PROJECT_ID="drush-apigee"
-export APIGEE_ENV="default-dev"
-export APIGEE_HOST="drush-apigee-dev.34-117-138-63.nip.io"
+export PROJECT_ID="PROJECT_ID_TO_SET"
+export APIGEE_ENV="APIGEE_ENV_TO_SET"
+export APIGEE_HOST="APIGEE_HOST_TO_SET"
 
 # Model Armor configuration
-export MODEL_ARMOR_REGION="us-central1"
+export MODEL_ARMOR_REGION="MODEL_ARMOR_REGION_TO_SET"
 
 # Change these as desired
 export SERVICE_ACCOUNT_NAME="llm-security-v2-svc-acct"
-export MODEL_ARMOR_TEMPLATE_ID="llm-governance-template"
+export MODEL_ARMOR_TEMPLATE_ID="apigee-modelarmor-template"
 export MODEL_NAME="claude-haiku-4-5"
 
