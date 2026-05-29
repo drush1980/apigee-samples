@@ -1,0 +1,22 @@
+{
+  "operationConfigs": [
+    {
+      "apiSource": "llm-security-v2-anthropic-desktop-vertex",
+      "operations": [
+        {
+          "resource": "/",
+          "methods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH",
+            "HEAD",
+            "OPTIONS"
+          ]
+        }
+      ]
+    }
+  ],
+  "operationConfigType": "proxy"
+}

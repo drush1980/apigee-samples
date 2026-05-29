@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright 2025 Google LLC
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules/>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>CORS</Name>
+            </Step>
+            <Step>
+                <Name>VA-Key</Name>
+                <Condition>request.verb != "HEAD"</Condition>
+            </Step>
+            <Step>
+                <Name>OAS-Verify</Name>
+                <Condition>request.verb != "HEAD"</Condition>
+            </Step>
+            <Step>
+                <Name>EV-ExtractFields</Name>
+                <Condition>request.verb != "HEAD"</Condition>
+            </Step>
+            <Step>
+                <Name>AM-ExtractRequestPrompt</Name>
+                <Condition>request.verb != "HEAD"</Condition>
+            </Step>
+            <Step>
+                <Name>FC-SanitizeUserPrompt</Name>
+                <Condition>request.verb != "HEAD"</Condition>
+            </Step>
+            <Step>
+                <Name>JS-TranslateDesktopRequest</Name>
+                <Condition>request.verb != "HEAD"</Condition>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows/>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <Name>AM-HEADResponse</Name>
+                <Condition>request.verb == "HEAD"</Condition>
+            </Step>
+        </Response>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/v1/desktop-vertex</BasePath>
+        <Properties>
+            <Property name="response.streaming.enabled">true</Property>
+        </Properties>
+    </HTTPProxyConnection>
+    <RouteRule name="NoTargetRoute">
+        <!-- Immediately return a successful blank body response on HTTP HEAD requests, or non-messages API discovery paths -->
+        <Condition>(request.verb == "HEAD") or Not (proxy.pathsuffix MatchesPath "/v1/projects/*/locations/*/v1/messages")</Condition>
+    </RouteRule>
+    <RouteRule name="llm">
+        <TargetEndpoint>llm</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>
