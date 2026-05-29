@@ -4,7 +4,7 @@
     <Properties/>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <URIPath>
-        <Pattern ignoreCase="false">/v1/projects/{projectId}/locations/{region}/v1/messages</Pattern>
+        <Pattern ignoreCase="false">/projects/{projectId}/locations/{region}/v1/messages</Pattern>
     </URIPath>
     <Source clearPayload="false">request</Source>
 </ExtractVariables>

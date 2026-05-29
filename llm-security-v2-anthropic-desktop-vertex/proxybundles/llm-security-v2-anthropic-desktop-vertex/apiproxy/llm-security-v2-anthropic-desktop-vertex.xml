@@ -14,6 +14,9 @@
 <APIProxy revision="1" name="llm-security-v2-anthropic-desktop-vertex">
     <DisplayName>llm-security-v2-anthropic-desktop-vertex</DisplayName>
     <Description>Secures Claude Desktop requests to Anthropic models on Vertex AI</Description>
+    <Policies>
+        <Policy>AM-ModelsResponse</Policy>
+    </Policies>
     <Resources>
         <Resource>jsc://translateDesktopRequest.js</Resource>
     </Resources>

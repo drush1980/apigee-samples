@@ -21,32 +21,43 @@
             </Step>
             <Step>
                 <Name>VA-Key</Name>
-                <Condition>request.verb != "HEAD"</Condition>
+                <Condition>(request.verb != "HEAD") and !(proxy.pathsuffix MatchesPath "**/v1/models")</Condition>
             </Step>
             <Step>
                 <Name>OAS-Verify</Name>
-                <Condition>request.verb != "HEAD"</Condition>
+                <Condition>(request.verb != "HEAD") and !(proxy.pathsuffix MatchesPath "**/v1/models")</Condition>
             </Step>
             <Step>
                 <Name>EV-ExtractFields</Name>
-                <Condition>request.verb != "HEAD"</Condition>
+                <Condition>(request.verb != "HEAD") and !(proxy.pathsuffix MatchesPath "**/v1/models")</Condition>
             </Step>
             <Step>
                 <Name>AM-ExtractRequestPrompt</Name>
-                <Condition>request.verb != "HEAD"</Condition>
+                <Condition>(request.verb != "HEAD") and !(proxy.pathsuffix MatchesPath "**/v1/models")</Condition>
             </Step>
             <Step>
                 <Name>FC-SanitizeUserPrompt</Name>
-                <Condition>request.verb != "HEAD"</Condition>
+                <Condition>(request.verb != "HEAD") and !(proxy.pathsuffix MatchesPath "**/v1/models")</Condition>
             </Step>
             <Step>
                 <Name>JS-TranslateDesktopRequest</Name>
-                <Condition>request.verb != "HEAD"</Condition>
+                <Condition>(request.verb != "HEAD") and !(proxy.pathsuffix MatchesPath "**/v1/models")</Condition>
             </Step>
         </Request>
         <Response/>
     </PreFlow>
-    <Flows/>
+    <Flows>
+        <Flow name="GetModels">
+            <Description>Handles /v1/models discovery checks</Description>
+            <Request/>
+            <Response>
+                <Step>
+                    <Name>AM-ModelsResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "**/v1/models") and (request.verb == "GET")</Condition>
+        </Flow>
+    </Flows>
     <PostFlow name="PostFlow">
         <Request/>
         <Response>
@@ -63,8 +74,8 @@
         </Properties>
     </HTTPProxyConnection>
     <RouteRule name="NoTargetRoute">
-        <!-- Immediately return a successful blank body response on HTTP HEAD requests, or non-messages API discovery paths -->
-        <Condition>(request.verb == "HEAD") or Not (proxy.pathsuffix MatchesPath "/v1/projects/*/locations/*/v1/messages")</Condition>
+        <!-- Immediately return response on HTTP HEAD, /v1/models, or non-messages API discovery paths directly -->
+        <Condition>(request.verb == "HEAD") or (proxy.pathsuffix MatchesPath "/v1/models") or !(proxy.pathsuffix MatchesPath "/projects/*/locations/*/v1/messages")</Condition>
     </RouteRule>
     <RouteRule name="llm">
         <TargetEndpoint>llm</TargetEndpoint>

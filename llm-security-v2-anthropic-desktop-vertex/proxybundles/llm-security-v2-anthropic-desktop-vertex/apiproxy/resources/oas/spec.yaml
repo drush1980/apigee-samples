@@ -36,7 +36,7 @@ tags:
       description: Find out more
       url: https://github.com
 paths:
-  /v1/projects/{projectId}/locations/{region}/v1/messages:
+  /projects/{projectId}/locations/{region}/v1/messages:
     post:
       tags:
         - text-generation
