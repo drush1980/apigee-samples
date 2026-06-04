@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-CleanResponseHeaders">
+  <DisplayName>AM-CleanResponseHeaders</DisplayName>
+  <Properties/>
+  <Remove>
+    <Headers>
+      <Header name="Content-Encoding"/>
+    </Headers>
+  </Remove>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

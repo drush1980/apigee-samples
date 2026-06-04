@@ -16,8 +16,11 @@
     <Description>Secures Claude Desktop requests to Anthropic models on Vertex AI</Description>
     <Policies>
         <Policy>AM-ModelsResponse</Policy>
+        <Policy>JS-ExtractTokenCounts</Policy>
+        <Policy>AM-CleanResponseHeaders</Policy>
     </Policies>
     <Resources>
         <Resource>jsc://translateDesktopRequest.js</Resource>
+        <Resource>jsc://extractTokenCounts.js</Resource>
     </Resources>
 </APIProxy>

@@ -70,6 +70,22 @@ else
   rm "$json_file"
 fi
 
+echo "Creating Data collectors..."
+
+apigeecli datacollectors create -d "Candidates token count" -n dc_candidates_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
+apigeecli datacollectors create -d "Prompt token count" -n dc_prompt_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
+apigeecli datacollectors create -d "Total token count" -n dc_total_token_count -p INTEGER --org "$PROJECT_ID" --token "$TOKEN"
+
+echo "Creating Token Consumption Report...."
+
+curl --request POST \
+  "https://apigee.googleapis.com/v1/organizations/$PROJECT_ID/reports" \
+  --header "Authorization: Bearer $TOKEN" \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{"name":"tokens-consumption-report","displayName":"Tokens Consumption Report","metrics":[{"name":"dc_prompt_token_count","function":"sum"},{"name":"dc_candidates_token_count","function":"sum"},{"name":"dc_total_token_count","function":"sum"}],"dimensions":["api_product","developer_app"],"properties":[{"value":[{}]}],"chartType":"line"}' \
+  --compressed
+
 echo "Deploying the Shared Flow"
 import_and_deploy_sharedflow "ModelArmor-v2" "$PROJECT_ID" "$APIGEE_ENV" "${SA_EMAIL}"
 
