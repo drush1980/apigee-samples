@@ -17,8 +17,9 @@ from google.adk.agents.remote_a2a_agent import AGENT_CARD_WELL_KNOWN_PATH
 from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
 from dotenv import load_dotenv
 from .tools import orders, returns, customers, shipping
-from google.adk.models.lite_llm import LiteLlm
+from google.adk.models.apigee_llm import ApigeeLlm
 from google.adk.tools.apihub_tool.clients.secret_client import SecretManagerClient
+
 import warnings,os
 import httpx
 
@@ -44,11 +45,11 @@ SECRET=f"projects/{PROJECT_ID}/secrets/cymbal-retail-apikey/versions/latest"
 secret_manager_client = SecretManagerClient()
 apikey_credential_str = secret_manager_client.get_secret(SECRET)
 
-model=LiteLlm(
-    model=MODEL_NAME,
-    api_base=f"https://{APIGEE_HOSTNAME}{APIGEE_LLM}",
-    # Pass authentication headers if needed
-    extra_headers={"x-apikey": apikey_credential_str}
+model = ApigeeLlm(
+  model=f"apigee/{MODEL_NAME}",
+  proxy_url=f"https://{APIGEE_HOSTNAME}{APIGEE_LLM}",
+  # Pass authentication headers if needed
+  custom_headers={"x-apikey": apikey_credential_str}
 )
 
 # Define the sub-agents for each tool with their instructions
